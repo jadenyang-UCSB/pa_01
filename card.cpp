@@ -91,7 +91,7 @@ bool operator<(card a, card b){
 }
 
 bool operator > (card a,card b){
-    return !(a<b);
+    return (b < a);
 }
 
 ostream& operator<<(ostream& os, const card& a){

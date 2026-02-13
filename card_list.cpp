@@ -4,38 +4,42 @@
 
     #include <iostream>
     #include "card.h"
+    class cardBST;
 
     class Iterator{
         public:
-            Iterator(Node* root);
+            Iterator(Node* root, cardBST* origi);
             Iterator& operator++();
             Iterator& operator--();
             card& operator*();
             card* operator->();
+            Node* getNode();
         private:
+            cardBST* original;
             Node* node;
     };
 
+
+
     class cardBST{
         public:
-
+            Node* successor(Node* head); //DONE
+            Node* predecessor(Node* head); // DONE
             ~cardBST();
             cardBST(); //DONE
             cardBST(card head); //DONE
 
             void insert(Node* head, card a); //DONE
-            void remove(card a);
+            void remove(card a); //DONE
             void removeHelp(Node* head, card a); //DONE
             bool contains(Node* head, card a); //DONE
             Node* getRoot();
 
-            Iterator begin(); //DONE
-            Iterator end(); //DONE
-            Iterator rbegin(); //DONE
-            Iterator rend(); //DONE
+            Iterator* begin(); //DONE
+            Iterator* end(); //DONE
+            Iterator* rbegin(); //DONE
+            Iterator* rend(); //DONE
 
-            Node* successor(Node* head); //DONE
-            Node* predecessor(Node* head); // DONE
             Node* find(Node* head, card number); //DONE
             
             void inOrder(Node* head);
@@ -105,80 +109,44 @@
         if(head->data == a){
             return true;
         }
-
-        if(head->data > a){
+        else if(head->data > a){
             return contains(head->left, a);
         }
         else{
             return contains(head->right, a);
         }
-    }
 
-    Iterator cardBST::begin(){
-        Node* traverse = root;
-        while(traverse->left){
-            traverse = traverse->left;
-        }
-
-        return Iterator(traverse);
-    }
-
-    Iterator cardBST::end(){
-        Node* traverse = root;
-        while(traverse->right){
-            traverse = traverse->right;
-        }
-
-        return Iterator(traverse);
-    }
-
-    Iterator cardBST::rend(){
-        Node* traverse = root;
-        while(traverse->left){
-            traverse = traverse->left;
-        }
-
-        return Iterator(traverse);
-    }
-
-    Iterator::Iterator(Node* root){
-        node = root;
-    }
-
-    Iterator cardBST::rbegin(){
-        Node* traverse = root;
-        while(traverse->right){
-            traverse = traverse->right;
-        }
-
-        return Iterator(traverse);
     }
 
     Node* cardBST::successor(Node* head){
-
+        if(!head){
+            return nullptr;
+        }
+        
         if(!(contains(root, head->data))){
             return nullptr;
         }
-
-        Node* edgeCase = head;
+        
+        Node* edgeCase = root;
         while(edgeCase->right){
             edgeCase = edgeCase->right;
         }
-
-        if(edgeCase->data == head->data){
+        if(edgeCase == head){
             return nullptr;
         }
 
         Node* traverse = head;
+
         if(!traverse->right){
-            while(traverse->data > traverse->parent->data && traverse->parent != nullptr){
+            while(traverse->parent != nullptr && traverse->data > traverse->parent->data){
                 traverse = traverse->parent;
             }
         }
 
         if(!head->right){
-            return traverse;
+            return traverse->parent;
         }
+
 
         Node* rightNode = head->right;
         while(rightNode->left){
@@ -194,24 +162,24 @@
             return nullptr;
         }
 
-        Node* edgeCase = head;
+        Node* edgeCase = root;
         while(edgeCase->left){
             edgeCase = edgeCase->left;
         }
 
-        if(edgeCase->data == head->data){
+        if(edgeCase == head){
             return nullptr;
         }
 
         Node* traverse = head;
         if(!traverse->left){
-            while(traverse->data > traverse->parent->data && traverse->parent != nullptr){
+            while(traverse->parent != nullptr && traverse->data < traverse->parent->data){
                 traverse = traverse->parent;
             }
         }
 
         if(!head->left){
-            return traverse;
+            return traverse->parent;
         }
 
         Node* leftNode = head->left;
@@ -370,5 +338,72 @@
         }
         destructHelp(del->left);
         destructHelp(del->right);
-        remove(del->data);
+        delete del;
+    }
+
+
+    Iterator::Iterator(Node* root, cardBST* ori){
+        node = root;
+        original = ori;
+    }
+
+
+    Node* Iterator::getNode(){
+        return node;
+    }
+
+    Iterator* cardBST::begin(){
+        Node* traverse = root;
+        if(!root){
+            return nullptr;
+        }
+        while(traverse->left){
+            traverse = traverse->left;
+        }
+
+        return new Iterator(traverse, this);
+    }
+
+    Iterator* cardBST::end(){
+        return new Iterator(nullptr, this);
+    }
+
+    Iterator* cardBST::rend(){
+        return new Iterator(nullptr, this);
+    }
+
+    Iterator* cardBST::rbegin(){
+        Node* traverse = root;
+        if(!root){
+            return nullptr;
+        }
+        while(traverse->right){
+            traverse = traverse->right;
+        }
+
+        return new Iterator(traverse, this);
+    }
+
+    Iterator& Iterator::operator++(){
+        if(node != nullptr){
+            Node* change = original->successor(node);
+            node = change;
+        }
+        return *this;
+    }
+
+    Iterator& Iterator::operator--(){
+        if(node != nullptr){
+            Node* change = original->predecessor(node);
+            node = change;
+        }
+        return *this;
+    }
+
+    card& Iterator::operator*(){
+        return node->data;
+    }
+
+    card* Iterator::operator->(){
+        return &(node->data);
     }

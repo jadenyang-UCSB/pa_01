@@ -9,6 +9,7 @@ using namespace std;
 #include "card.h"
 #include <iostream>
 
+    class cardBST;
     class Iterator{
         public:
             Iterator(Node* root);
@@ -16,6 +17,7 @@ using namespace std;
             Iterator& operator--();
             card& operator*();
             card* operator->();
+            Node* getNode();
         private:
             Node* node;
     };
@@ -34,10 +36,10 @@ using namespace std;
             bool contains(Node* head, card a); //DONE
             Node* getRoot();
 
-            Iterator begin(); //DONE
-            Iterator end(); //DONE
-            Iterator rbegin(); //DONE
-            Iterator rend(); //DONE
+            Iterator* begin(); //DONE
+            Iterator* end(); //DONE
+            Iterator* rbegin(); //DONE
+            Iterator* rend(); //DONE
 
             Node* successor(Node* head); //DONE
             Node* predecessor(Node* head); // DONE
