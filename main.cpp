@@ -75,9 +75,9 @@ int main(int argv, char** argc){
     b.remove(toDelete->data);
     deleteCards.remove(toDelete->data);
   }
-  cout << "\n" << "Alice's cards" << "\n";
+  cout << "\n" << "Alice's cards:" << "\n";
   a.inOrder(a.getRoot());
-  cout << "\n" << "Bob's cards" << "\n";
+  cout << "\n" << "Bob's cards:" << "\n";
   b.inOrder(b.getRoot());
   // auto it = b.rbegin();
   // while(it && it->getNode()){

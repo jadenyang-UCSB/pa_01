@@ -1,5 +1,5 @@
 // card.cpp
-// Author: Your name
+// Author: Jaden Yang and Natasha Doan
 // Implementation of the classes defined in card.h
 #include <iostream>
 using namespace std;

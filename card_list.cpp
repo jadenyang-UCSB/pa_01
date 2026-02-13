@@ -1,5 +1,5 @@
     // card_list.cpp
-    // Author: Your name
+    // Author: Jaden Yang and Natasha Doan
     // Implementation of the classes defined in card_list.h
 
     #include <iostream>

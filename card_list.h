@@ -1,5 +1,5 @@
 // card_list.h
-// Author: Your name
+// Author: Jaden Yang and Natasha Doan
 // All class declarations related to defining a BST that represents a player's hand
 using namespace std;
 
