@@ -66,7 +66,7 @@ int main(int argv, char** argc){
     cardOne.erase(picker);
     deleteCard.erase(picker);
   }
-
+  cout << "\n";
   cout << "Alice's cards:" << "\n";
   for(card a: cardOne){
     cout << a << "\n";
