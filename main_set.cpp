@@ -54,12 +54,12 @@ int main(int argv, char** argc){
     card picker;
     if(aliceTurn){
       picker = *deleteCard.begin();
-      cout << "Alice picked a matching card: " << picker << "\n";
+      cout << "Alice picked a matching card " << picker << "\n";
       aliceTurn = false;
     }
     else{
       picker = *deleteCard.rbegin();
-      cout << "Bob picked a matching card: " << picker << "\n";
+      cout << "Bob picked a matching card " << picker << "\n";
       aliceTurn = true;
     }
     cardTwo.erase(picker);
@@ -72,6 +72,8 @@ int main(int argv, char** argc){
     cout << a << "\n";
   }
 
+  cout << "\n";
+  
   cout << "Bob's cards:" << "\n";
   for (card b: cardTwo){
     cout << b << "\n";
