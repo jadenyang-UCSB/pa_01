@@ -82,7 +82,11 @@
         return root;
     }
 
-    void cardBST::insert(Node* head, card a){
+    void cardBST::insert(card a){
+        insertHelper(root, a);
+    }
+
+    void cardBST::insertHelper(Node* head, card a){
         if(!root){
             root = new Node(a);
             return;
@@ -103,7 +107,7 @@
                 return;
             }
             else{
-                insert(head->left, a);
+                insertHelper(head->left, a);
             }
         }
         else if(head->data < a){
@@ -113,13 +117,17 @@
                 return;
             }
             else{
-                insert(head->right, a);
+                insertHelper(head->right, a);
             }
         }
 
     }
 
-    bool cardBST::contains(Node* head, card a){
+    bool cardBST::contains(card a){
+        return containsHelp(root, a);
+    }
+
+    bool cardBST::containsHelp(Node* head, card a){
 
         if(head == nullptr){
             return false;
@@ -129,10 +137,10 @@
             return true;
         }
         else if(head->data > a){
-            return contains(head->left, a);
+            return containsHelp(head->left, a);
         }
         else{
-            return contains(head->right, a);
+            return containsHelp(head->right, a);
         }
 
     }
@@ -142,7 +150,7 @@
             return nullptr;
         }
         
-        if(!(contains(root, head->data))){
+        if(!(contains(head->data))){
             return nullptr;
         }
         
@@ -180,7 +188,7 @@
             return nullptr;
         }
 
-        if(!(contains(root, head->data))){
+        if(!(contains(head->data))){
             return nullptr;
         }
 
@@ -320,35 +328,18 @@
         }
     }
 
-    void cardBST::inOrder(Node* head){
+    void cardBST::inOrder(){
+        inOrderHelp(root);
+    }
+    void cardBST::inOrderHelp(Node* head){
         if(head == nullptr){
             return;
         }
-        inOrder(head->left);
+        inOrderHelp(head->left);
         cout << head->data << "\n";
-        inOrder(head->right);
+        inOrderHelp(head->right);
         return;
     }
-
-    void cardBST::preOrder(Node* head){
-        if(head == nullptr){
-            return;
-        }
-        cout << head->data << "\n";
-        preOrder(head->left);
-        preOrder(head->right);
-        return;
-    }
-
-    void cardBST::postOrder(Node* head){
-        if(head == nullptr){
-            return;
-        }
-        postOrder(head->left);
-        postOrder(head->right);
-        cout << head->data << "\n";
-        return;
-    } 
 
     cardBST::~cardBST(){
         destructHelp(root);
@@ -367,7 +358,6 @@
         node = root;
         original = ori;
     }
-
 
     Node* Iterator::getNode(){
         return node;
@@ -428,3 +418,61 @@
     card* Iterator::operator->(){
         return &(node->data);
     }
+
+    card Iterator::getData(){
+        return getNode()->data;
+    }
+
+
+void playGame(cardBST& a, cardBST& b){
+  cardBST deleteCards;
+
+  //Format for iterating
+  auto it = a.begin();
+  auto itEND = a.end();
+  while(*it != *itEND){
+      if(it && b.contains(*(*it))){
+        deleteCards.insert(*(*it));
+      }
+      ++(*it);
+  }
+  delete it;
+
+
+  bool alice_turn = true;
+  card toDelete;
+  auto deleteIterate = deleteCards.begin();
+  auto deleteIterateEND = deleteCards.end();
+
+  while(*deleteIterate != *deleteIterateEND){
+    delete deleteIterate;
+    delete deleteIterateEND;
+
+    if (alice_turn) {
+        Iterator* it = deleteCards.begin();
+        toDelete = *(*it);
+        delete it;
+        cout << "Alice picked matching card " << toDelete << "\n";
+    } else {
+        Iterator* it = deleteCards.rbegin();
+        toDelete = *(*it);
+        delete it;
+        cout << "Bob picked matching card " << toDelete << "\n";
+    }
+    a.remove(toDelete);
+    b.remove(toDelete);
+    deleteCards.remove(toDelete);
+    alice_turn = !alice_turn;
+
+    deleteIterate = deleteCards.begin();
+    deleteIterateEND = deleteCards.end();
+  }
+
+  delete deleteIterate;
+  delete deleteIterateEND;
+  
+  cout << "\n" << "Alice's cards:" << "\n";
+  a.inOrder();
+  cout << "\n" << "Bob's cards:" << "\n";
+  b.inOrder();
+}

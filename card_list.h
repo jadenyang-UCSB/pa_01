@@ -22,6 +22,7 @@ using namespace std;
             card& operator*();
             card* operator->();
             Node* getNode();
+            card getData();
             cardBST* getbstClass();
         private:
             cardBST* original;
@@ -35,9 +36,9 @@ using namespace std;
             cardBST(); //DONE
             cardBST(card head); //DONE
 
-            void insert(Node* head, card a); //DONE //DONE
+            void insert(card a); //DONE //DONE
             void remove(card a); //DONE // DONE
-            bool contains(Node* head, card a); //DONE //DONE
+            bool contains(card a); //DONE //DONE
             Node* getRoot(); //DONE //DONE
 
             Iterator* begin(); //DONE
@@ -47,13 +48,16 @@ using namespace std;
 
             Node* find(Node* head, card number); //DONE //DONE
             
-            void inOrder(Node* head);
+            void inOrder();
             void preOrder(Node* head); 
             void postOrder(Node* head);
             Node* successor(Node* head); //DONE //DONE
             Node* predecessor(Node* head); // DONE // DONE
             
         private:
+            void inOrderHelp(Node* head);
+            bool containsHelp(Node* head, card a); //DONE //DONE
+            void insertHelper(Node* head, card a);
             void removeHelp(Node* head, card a); //DONE
             void destructHelp(Node* del);
             Node* root;
@@ -61,6 +65,7 @@ using namespace std;
 
     bool operator==(Iterator a, Iterator b);
     bool operator!=(Iterator a, Iterator b);
+    void playGame(cardBST& a, cardBST& b);
 
 #endif
 

@@ -34,23 +34,19 @@ int main(){
     Node* rootFour;
     Node* rootFive;
     for(int one = 0; one < size; one++){
-        rootOne = testONE.getRoot();
-        testONE.insert(rootOne, testOne_cards[one]);
+        testONE.insert(testOne_cards[one]);
     }
 
     for(int two = 0; two < sizeTwo; two++){
-        rootTwo = testTWO.getRoot();
-        testTWO.insert(rootTwo, testTwo_cards[two]);
+        testTWO.insert(testTwo_cards[two]);
     }
 
     for(int three = 0; three < sizeThree; three++){
-        rootThree = testTHREE.getRoot();
-        testTHREE.insert(rootThree, testThree_cards[three]);
+        testTHREE.insert(testThree_cards[three]);
     }
 
     for(int four = 0; four < sizeFour; four++){
-        rootFour = testFOUR.getRoot();
-        testFOUR.insert(rootFour, testFour_cards[four]);
+        testFOUR.insert(testFour_cards[four]);
     }
 
     for(int five = 0; five < sizeTwo; five++){
@@ -81,15 +77,15 @@ int main(){
 
     cout << "\n" << "TESTING CONTAINS" << "\n";
     cout << "First contains test passed" << "\n";
-    assert(testONE.contains(rootOne, card("s 10")) == true);
+    assert(testONE.contains(card("s 10")) == true);
     cout << "Second contains test passed" << "\n";
-    assert(testTWO.contains(rootTwo, card("h 10")) == true);
+    assert(testTWO.contains(card("h 10")) == true);
     cout << "Third contains test passed" << "\n";
-    assert(testTHREE.contains(rootThree, card("s 1")) == true);
+    assert(testTHREE.contains(card("s 1")) == true);
     cout << "Four contains test passed" << "\n";
-    assert(testFOUR.contains(rootFour, card("d a")) == false);
+    assert(testFOUR.contains(card("d a")) == false);
     cout << "Five contains test passed" << "\n";
-    assert(testFIVE.contains(rootFive, card("a a")) == false);
+    assert(testFIVE.contains(card("a a")) == false);
     cout << "\n" << "CONTAINS() has passed" << "\n";
 
     Node* testOne_successor = testONE.find(rootOne, card("s 10"));
@@ -174,11 +170,11 @@ int main(){
 
 
     //TESTING INSERT/REMOVAL
-    testONE.insert(rootOne, card("d 10"));
-    testTWO.insert(rootTwo, card("s 10"));
-    testTHREE.insert(rootThree, card("h a"));
-    testFOUR.insert(rootFour, card("s 10"));
-    testFIVE.insert(rootFive, card("c 8"));
+    testONE.insert(card("d 10"));
+    testTWO.insert(card("s 10"));
+    testTHREE.insert(card("h a"));
+    testFOUR.insert(card("s 10"));
+    testFIVE.insert(card("c 8"));
 
 
     rootOne = testONE.getRoot();
@@ -190,16 +186,16 @@ int main(){
 
 
     cout << "\n" << "TESTING INSERTS" << "\n";
-    assert(testONE.contains(rootOne, card("d 10")) == true);
+    assert(testONE.contains(card("d 10")) == true);
     cout << "First insert test passed" << "\n";
-    assert(testTWO.contains(rootTwo, card("s 10")) == true);
+    assert(testTWO.contains(card("s 10")) == true);
     cout << "Second insert test passed" << "\n";
-    assert(testTHREE.contains(rootThree, card("h a")) == true);
+    assert(testTHREE.contains(card("h a")) == true);
     cout << "Third insert test passed" << "\n";
-    assert(testFOUR.contains(rootFour, card("s 10")) == true);
+    assert(testFOUR.contains(card("s 10")) == true);
     cout << "Fourth insert test passed" << "\n";
 
-    assert(testFIVE.contains(rootFive, card("c 8")) == true);
+    assert(testFIVE.contains(card("c 8")) == true);
     cout << "Five insert test passed" << "\n";
     cout << "\n" << "INSERT() has passed" << "\n";
 
@@ -231,15 +227,15 @@ int main(){
     rootFour = testFOUR.getRoot();
     rootFive = testFIVE.getRoot();
 
-    assert(testONE.contains(rootOne, card("d 10")) == false && testONE.contains(rootOne, card("d 2")) == false);
+    assert(testONE.contains(card("d 10")) == false && testONE.contains(card("d 2")) == false);
     cout << "First removed test passed" << "\n";
-    assert(testTWO.contains(rootTwo, card("h 10")) == false && testTWO.contains(rootTwo, card("s 10")) == false);
+    assert(testTWO.contains(card("h 10")) == false && testTWO.contains(card("s 10")) == false);
     cout << "Second removed test passed" << "\n";
-    assert(testTHREE.contains(rootThree, card("h a")) == false && testTHREE.contains(rootThree, card("d 9")) == false);
+    assert(testTHREE.contains(card("h a")) == false && testTHREE.contains(card("d 9")) == false);
     cout << "Third removed test passed" << "\n";
-    assert(testFOUR.contains(rootFour, card("s 10")) == false && testFOUR.contains(rootFour, card("d 6")) == false);
+    assert(testFOUR.contains(card("s 10")) == false && testFOUR.contains(card("d 6")) == false);
     cout << "Four removed test passed" << "\n";
-    assert(testFIVE.contains(rootFive, card("c 8")) == false);
+    assert(testFIVE.contains(card("c 8")) == false);
     cout << "Fifth removed test passed" << "\n";
 
 
@@ -329,8 +325,91 @@ int main(){
     cout << "Passed for empty --" << "\n";
 
 
-    cout << "\n";
-    cout << "All tests passed \n";
 
-    return 0;
-}
+    cout << "TESTING PLAYGAME RIGHT NOW";
+
+
+    //TESTING PLAYGAME
+    vector<card> alice_testOne = {
+        card("c a"),
+        card("c 7"),
+        card("d 3"),
+        card("d q"),
+        card("s 5"),
+        card("s j"),
+        card("h 2"),
+        card("h 9"),
+        card("h k")
+    };
+
+    vector<card> bob_testOne = {
+        card("c 4"),
+        card("c 7"),
+        card("d 3"),
+        card("d 10"),
+        card("s j"),
+        card("s a"),
+        card("h 6"),
+        card("h 9"),
+        card("h q")
+    };
+
+    cardBST normal_one;
+    cardBST normal_two;
+    for(int insert_Alice = 0; insert_Alice < (int)alice_testOne.size(); insert_Alice++){
+        normal_one.insert(alice_testOne[insert_Alice]);
+    }
+
+    for(int insert_Bob = 0; insert_Bob < (int)alice_testOne.size(); insert_Bob++){
+        normal_two.insert(bob_testOne[insert_Bob]);
+    }
+
+    playGame(normal_one,normal_two);
+
+    auto normalstart = *normal_one.begin();
+    auto normalend = *normal_one.end();
+
+    while(normalstart != normalend){
+        assert(!(normal_two.contains(*normalstart)));
+        cout << "Making sure no duplicates" << "\n";
+        ++normalstart;
+    }
+    cout << "PASSED TEST ONE" << "\n";
+    cout << "\n";
+    
+
+    // delete &normalstart;
+    // delete &normalend;
+
+    // cout << "Continue to test two EMPTY HAND" << "\n";
+    // cout << "\n";
+
+    // cardBST empty_one;
+    // cardBST empty_two;
+
+    // alice_testOne = {
+    //     card("c a"),
+    //     card("c 7"),
+    //     card("d 3"),
+    //     card("d q"),
+    //     card("s 5"),
+    //     card("s j"),
+    //     card("h 2"),
+    //     card("h 9"),
+    //     card("h k")
+    // };
+
+    // bob_testOne = {};
+    // for(int insert_Alice = 0; insert_Alice < (int)alice_testOne.size(); insert_Alice++){
+    //     empty_one.insert(alice_testOne[insert_Alice]);
+    // }
+
+    // playGame(empty_one,empty_two);
+
+    // for(int nullCheck = 0; nullCheck < alice_testOne.size(); nullCheck++){
+    //     assert(empty_one.contains(alice_testOne[nullCheck]));
+    // }
+    // cout << "\n";
+    // cout << "All tests passed \n";
+    // return 0;
+    }
