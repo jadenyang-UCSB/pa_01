@@ -371,45 +371,101 @@ int main(){
 
     while(normalstart != normalend){
         assert(!(normal_two.contains(*normalstart)));
-        cout << "Making sure no duplicates" << "\n";
+        cout << "No duplicates" << "\n";
         ++normalstart;
     }
     cout << "PASSED TEST ONE" << "\n";
     cout << "\n";
     
 
-    // delete &normalstart;
-    // delete &normalend;
+    cout << "Continue to test two EMPTY HAND" << "\n";
+    cout << "\n";
 
-    // cout << "Continue to test two EMPTY HAND" << "\n";
-    // cout << "\n";
+    cardBST empty_one;
+    cardBST empty_two;
 
-    // cardBST empty_one;
-    // cardBST empty_two;
+    alice_testOne = {
+        card("c a"),
+        card("c 7"),
+        card("d 3"),
+        card("d q"),
+        card("s 5"),
+        card("s j"),
+        card("h 2"),
+        card("h 9"),
+        card("h k")
+    };
 
-    // alice_testOne = {
-    //     card("c a"),
-    //     card("c 7"),
-    //     card("d 3"),
-    //     card("d q"),
-    //     card("s 5"),
-    //     card("s j"),
-    //     card("h 2"),
-    //     card("h 9"),
-    //     card("h k")
-    // };
-
-    // bob_testOne = {};
-    // for(int insert_Alice = 0; insert_Alice < (int)alice_testOne.size(); insert_Alice++){
-    //     empty_one.insert(alice_testOne[insert_Alice]);
-    // }
-
-    // playGame(empty_one,empty_two);
-
-    // for(int nullCheck = 0; nullCheck < alice_testOne.size(); nullCheck++){
-    //     assert(empty_one.contains(alice_testOne[nullCheck]));
-    // }
-    // cout << "\n";
-    // cout << "All tests passed \n";
-    // return 0;
+    bob_testOne = {};
+    for(int insert_Alice = 0; insert_Alice < (int)alice_testOne.size(); insert_Alice++){
+        empty_one.insert(alice_testOne[insert_Alice]);
     }
+
+    playGame(empty_one,empty_two);
+
+    for(int nullCheck = 0; nullCheck < (int)alice_testOne.size(); nullCheck++){
+        assert(empty_one.contains(alice_testOne[nullCheck]));
+    }
+
+    cout << "\n PASSED TEST TWO";
+
+
+    cout << "\n";
+
+    cout << "TEST THREE NO SIMILARITY" << "\n";
+    
+    cardBST no_similarity_one;
+    cardBST no_similarity_two;
+
+    alice_testOne = {
+        card("c a"),
+        card("c 4"),
+        card("c 7"),
+        card("d 2"),
+        card("d 8"),
+        card("s 3"),
+        card("s 9"),
+        card("h 5"),
+        card("h q")
+    };
+
+    bob_testOne = {
+        card("c 2"),
+        card("c 6"),
+        card("c k"),
+        card("d 3"),
+        card("d 9"),
+        card("d j"),
+        card("s 4"),
+        card("h a"),
+        card("h 10")
+    };
+
+    for(int insert_Alice = 0; insert_Alice < (int)alice_testOne.size(); insert_Alice++){
+        no_similarity_one.insert(alice_testOne[insert_Alice]);
+    }
+
+    for(int insert_Bob = 0; insert_Bob < (int)alice_testOne.size(); insert_Bob++){
+        no_similarity_two.insert(bob_testOne[insert_Bob]);
+    }
+
+    playGame(no_similarity_one,no_similarity_two);
+
+    normalstart = *no_similarity_one.begin();
+    normalend = *no_similarity_one.end();
+
+    while(normalstart != normalend){
+        assert(!(no_similarity_two.contains(*normalstart)));
+        cout << "No duplicates" << "\n";
+        ++normalstart;
+    }
+    cout << "PASSED TEST THREE" << "\n";
+
+
+    cout << "\n";
+
+
+    
+    cout << "All tests passed \n";
+    return 0;
+}
