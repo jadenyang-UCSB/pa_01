@@ -79,16 +79,6 @@ int main(int argv, char** argc){
   a.inOrder(a.getRoot());
   cout << "\n" << "Bob's cards:" << "\n";
   b.inOrder(b.getRoot());
-  // auto it = b.rbegin();
-  // while(it && it->getNode()){
-  //     --(*it);
-  //     if(it->getNode() == nullptr){
-  //       cout << "STOP IT NOW" << "\n";
-  //     }
-  //     else{
-  //       cout << "This is my node" << it->getNode()->data << "\n";
-  //     }
-  // }
   return 0;
 }
 
@@ -143,3 +133,14 @@ int main(int argv, char** argc){
   // // cout << b.predecessor(root);
   // // cout << "I did it";
   // // cout << b.successor(root);
+
+    // auto it = b.rbegin();
+  // while(it && it->getNode()){
+  //     --(*it);
+  //     if(it->getNode() == nullptr){
+  //       cout << "STOP IT NOW" << "\n";
+  //     }
+  //     else{
+  //       cout << "This is my node" << it->getNode()->data << "\n";
+  //     }
+  // }

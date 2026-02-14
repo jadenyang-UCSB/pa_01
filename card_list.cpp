@@ -4,55 +4,74 @@
 
     #include <iostream>
     #include "card.h"
+    #include "card_list.h"
     class cardBST;
 
-    class Iterator{
-        public:
-            Iterator(Node* root, cardBST* origi);
-            Iterator& operator++();
-            Iterator& operator--();
-            card& operator*();
-            card* operator->();
-            Node* getNode();
-        private:
-            cardBST* original;
-            Node* node;
-    };
+    // class Iterator{
+    //     public:
+    //         Iterator(Node* root, cardBST* origi);
+    //         Iterator& operator++();
+
+    //         friend bool operator==(Iterator a, Iterator b);
+    //         friend bool operator!=(Iterator a, Iterator b);
+
+    //         Iterator& operator--();
+    //         card& operator*();
+    //         card* operator->();
+    //         Node* getNode();
+    //     private:
+    //         cardBST* original;
+    //         Node* node;
+    // };
+
+    bool operator==(Iterator a, Iterator b){
+        if(a.node == b.node){
+            return true;
+        }
+        return false;
+    }
+
+    bool operator!=(Iterator a, Iterator b){
+        return !(a == b);
+    }
 
 
+    // class cardBST{
+    //     public:
+    //         ~cardBST();
+    //         cardBST(); //DONE
+    //         cardBST(card head); //DONE
 
-    class cardBST{
-        public:
-            ~cardBST();
-            cardBST(); //DONE
-            cardBST(card head); //DONE
+    //         void insert(Node* head, card a); //DONE //DONE
+    //         void remove(card a); //DONE // DONE
+    //         bool contains(Node* head, card a); //DONE //DONE
+    //         Node* getRoot(); //DONE //DONE
 
-            void insert(Node* head, card a); //DONE //DONE
-            void remove(card a); //DONE // DONE
-            bool contains(Node* head, card a); //DONE //DONE
-            Node* getRoot(); //DONE //DONE
+    //         Iterator* begin(); //DONE
+    //         Iterator* end(); //DONE
+    //         Iterator* rbegin(); //DONE
+    //         Iterator* rend(); //DONE
 
-            Iterator* begin(); //DONE
-            Iterator* end(); //DONE
-            Iterator* rbegin(); //DONE
-            Iterator* rend(); //DONE
-
-            Node* find(Node* head, card number); //DONE //DONE
+    //         Node* find(Node* head, card number); //DONE //DONE
             
-            void inOrder(Node* head);
-            void preOrder(Node* head); 
-            void postOrder(Node* head);
-            Node* successor(Node* head); //DONE //DONE
-            Node* predecessor(Node* head); // DONE // DONE
+    //         void inOrder(Node* head);
+    //         void preOrder(Node* head); 
+    //         void postOrder(Node* head);
+    //         Node* successor(Node* head); //DONE //DONE
+    //         Node* predecessor(Node* head); // DONE // DONE
             
-        private:
-            void removeHelp(Node* head, card a); //DONE
-            void destructHelp(Node* del);
-            Node* root;
-    };
+    //     private:
+    //         void removeHelp(Node* head, card a); //DONE
+    //         void destructHelp(Node* del);
+    //         Node* root;
+    // };
 
     cardBST::cardBST(){
         root = nullptr;
+    }
+
+    cardBST* Iterator::getbstClass(){
+        return original;
     }
 
     cardBST::cardBST(card head){
@@ -357,7 +376,7 @@
     Iterator* cardBST::begin(){
         Node* traverse = root;
         if(!root){
-            return nullptr;
+            return end();
         }
         while(traverse->left){
             traverse = traverse->left;
@@ -377,7 +396,7 @@
     Iterator* cardBST::rbegin(){
         Node* traverse = root;
         if(!root){
-            return nullptr;
+            return rend();
         }
         while(traverse->right){
             traverse = traverse->right;

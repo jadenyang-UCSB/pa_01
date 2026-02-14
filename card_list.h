@@ -12,41 +12,46 @@ using namespace std;
     class cardBST;
     class Iterator{
         public:
-            Iterator(Node* root);
+            Iterator(Node* root, cardBST* origi);
             Iterator& operator++();
+
+            friend bool operator==(Iterator a, Iterator b);
+            friend bool operator!=(Iterator a, Iterator b);
+
             Iterator& operator--();
             card& operator*();
             card* operator->();
             Node* getNode();
+            cardBST* getbstClass();
         private:
+            cardBST* original;
             Node* node;
     };
 
 
     class cardBST{
         public:
-
             ~cardBST();
             cardBST(); //DONE
             cardBST(card head); //DONE
 
-            void insert(Node* head, card a); //DONE
-            void remove(card a);
-            bool contains(Node* head, card a); //DONE
-            Node* getRoot();
+            void insert(Node* head, card a); //DONE //DONE
+            void remove(card a); //DONE // DONE
+            bool contains(Node* head, card a); //DONE //DONE
+            Node* getRoot(); //DONE //DONE
 
             Iterator* begin(); //DONE
             Iterator* end(); //DONE
             Iterator* rbegin(); //DONE
             Iterator* rend(); //DONE
 
-            Node* find(Node* head, card number); //DONE
+            Node* find(Node* head, card number); //DONE //DONE
             
             void inOrder(Node* head);
-            void preOrder(Node* head);
+            void preOrder(Node* head); 
             void postOrder(Node* head);
-            Node* successor(Node* head); //DONE
-            Node* predecessor(Node* head); // DONE
+            Node* successor(Node* head); //DONE //DONE
+            Node* predecessor(Node* head); // DONE // DONE
             
         private:
             void removeHelp(Node* head, card a); //DONE
@@ -54,6 +59,8 @@ using namespace std;
             Node* root;
     };
 
+    bool operator==(Iterator a, Iterator b);
+    bool operator!=(Iterator a, Iterator b);
 
 #endif
 

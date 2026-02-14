@@ -4,23 +4,13 @@
 #include "card.h"
 #include "card_list.h"
 #include <cassert>
+
 using namespace std;
 
 #include <vector>
 bool card_equivilant(card a, card b){
     return a == b;
 }
-
-// bool card_check(){
-//     //Checking if the == operator is fine
-//     assert(card_equivilant(card("c 2"), card("c 2")));
-//     assert(!(card_equivilant(card("c 4"), card("c 9"))));
-//     assert(card_equivilant(card("d 9"), card("d 9")));
-//     assert(!(card_equivilant(card("c 2"), card("d 2"))));
-//     assert(!(card_equivilant(card("h 2"), card("d 2"))));
-//     cout << "All card == tests passed \n";
-//     return true;
-// }
 
 int main(){
     cardBST testONE;
@@ -178,7 +168,7 @@ int main(){
     assert(testFIVE.predecessor(testFive_successor) == nullptr);
     cout << "Fifth predecessor test passed" << "\n";
 
-    cout << "\n" << "All successor test passed" << "\n";
+    cout << "\n" << "All predecessor test passed" << "\n";
 
 
 
@@ -207,7 +197,7 @@ int main(){
     assert(testTHREE.contains(rootThree, card("h a")) == true);
     cout << "Third insert test passed" << "\n";
     assert(testFOUR.contains(rootFour, card("s 10")) == true);
-    cout << "Four insert test passed" << "\n";
+    cout << "Fourth insert test passed" << "\n";
 
     assert(testFIVE.contains(rootFive, card("c 8")) == true);
     cout << "Five insert test passed" << "\n";
@@ -255,11 +245,91 @@ int main(){
 
     //PUTTING AN ELEMENT BACK
 
-    
+    //TESTING ITERATOR SECTION
+    Iterator* testFIVE_BEGIN = testFIVE.begin();
+    Iterator* testFIVE_END = testFIVE.end();
+
+    Iterator* testFIVE_RBEGIN = testFIVE.rbegin();
+    Iterator* testFIVE_REND = testFIVE.rend();
+
+    cout << "\n TESTING EQUALITY ON EMPTY TREE \n";
+
+    assert(*testFIVE_BEGIN == *testFIVE_END);
+    cout << ".begin() and .end() passed" << "\n";
+    assert(*testFIVE_RBEGIN == *testFIVE_REND);
+    cout << ".rbegin() and .rend() passed" << "\n";
+    cout << "\n";
+
+    cout << "TESTING ON EQUALITY \n";
+    Iterator* testONE_BEGIN = testONE.begin();
+    Iterator* testTWO_BEGIN = testONE.begin();
+
+    Iterator* testONE_RBEGIN = testONE.rbegin();
+
+    assert(*testONE_BEGIN == *testTWO_BEGIN);
+    cout << "EQUALITY PASSED" << "\n";
+
+    assert(*testONE_BEGIN != *testONE_RBEGIN);
+    cout << "NOT EQUAL PASSED" << "\n";
+
+    cout << "\n";
+
+    cout << "EQUALITY PASSED" << "\n";
+
+    cout << "\n";
+
+    cout << "TESTING -- ON TREE" << "\n";
+    while(testONE_RBEGIN && testONE_RBEGIN->getNode()){
+        Node* previous = (testONE_RBEGIN->getNode());
+        --(*testONE_RBEGIN);
+        if(testONE_RBEGIN->getNode() == nullptr){
+            cout << "\n";
+            cout << "STOP IT NOW";
+            cout << "\n";
+        }
+        else{
+            cout << "Previously this: " << previous->data << ". Now, " << testONE_RBEGIN->getNode()->data << "\n";
+            assert(previous->data == testONE_RBEGIN->getbstClass()->successor(testONE_RBEGIN->getNode())->data);
+        }
+    }
+    cout << "\n";
+    cout << "PASSED -- \n";
+
+    cout << "\n";
+    cout << "TESTING ++ ON TREE" << "\n";
+
+    while(testONE_BEGIN && testONE_BEGIN->getNode()){
+        Node* previous = (testONE_BEGIN->getNode());
+        ++(*testONE_BEGIN);
+        if(testONE_BEGIN->getNode() == nullptr){
+            cout << "STOP IT NOW";
+            cout << "\n";
+        }
+        else{
+            cout << "Previously this: " << previous->data << ". Now, " << testONE_BEGIN->getNode()->data << "\n";
+            assert(previous->data == testONE_BEGIN->getbstClass()->predecessor(testONE_BEGIN->getNode())->data);
+        }
+    }
+    cout << "PASSED ++" << "\n";
+
+    cout << "\n";
+    cout << "TESTING SAFE BEHAVIOR ++" << "\n";
+
+    cardBST t;
+    auto e = t.end();     // node == nullptr
+    ++(*e);               // should not crash
+    ++(*e);               // still should not crash
+    assert(e->getNode() == nullptr);
+    cout << "Passed for empty ++" << "\n";
+
+    e = t.rend();     // node == nullptr
+    --(*e);               // should not crash
+    --(*e);               // still should not crash
+    assert(e->getNode() == nullptr);
+    cout << "Passed for empty --" << "\n";
 
 
-
-
+    cout << "\n";
     cout << "All tests passed \n";
 
     return 0;
