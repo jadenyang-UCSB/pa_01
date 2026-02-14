@@ -1,5 +1,5 @@
 // card_list.h
-// Author: Jaden Yang and Natasha Doan
+// Author: Jaden Yang and Natasha
 // All class declarations related to defining a BST that represents a player's hand
 using namespace std;
 
@@ -32,7 +32,6 @@ using namespace std;
 
             void insert(Node* head, card a); //DONE
             void remove(card a);
-            void removeHelp(Node* head, card a); //DONE
             bool contains(Node* head, card a); //DONE
             Node* getRoot();
 
@@ -41,15 +40,16 @@ using namespace std;
             Iterator* rbegin(); //DONE
             Iterator* rend(); //DONE
 
-            Node* successor(Node* head); //DONE
-            Node* predecessor(Node* head); // DONE
             Node* find(Node* head, card number); //DONE
             
             void inOrder(Node* head);
             void preOrder(Node* head);
             void postOrder(Node* head);
+            Node* successor(Node* head); //DONE
+            Node* predecessor(Node* head); // DONE
             
         private:
+            void removeHelp(Node* head, card a); //DONE
             void destructHelp(Node* del);
             Node* root;
     };

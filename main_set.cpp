@@ -78,6 +78,8 @@ int main(int argv, char** argc){
   for (card b: cardTwo){
     cout << b << "\n";
   }
+
+  
   // if(found == true && aliceTurn == true){
   //   cout << "Alice picked a matching card: " << deleteCard;
   //   cardTwo.erase(deleteCard);

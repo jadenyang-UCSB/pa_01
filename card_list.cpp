@@ -23,30 +23,30 @@
 
     class cardBST{
         public:
-            Node* successor(Node* head); //DONE
-            Node* predecessor(Node* head); // DONE
             ~cardBST();
             cardBST(); //DONE
             cardBST(card head); //DONE
 
-            void insert(Node* head, card a); //DONE
-            void remove(card a); //DONE
-            void removeHelp(Node* head, card a); //DONE
-            bool contains(Node* head, card a); //DONE
-            Node* getRoot();
+            void insert(Node* head, card a); //DONE //DONE
+            void remove(card a); //DONE // DONE
+            bool contains(Node* head, card a); //DONE //DONE
+            Node* getRoot(); //DONE //DONE
 
             Iterator* begin(); //DONE
             Iterator* end(); //DONE
             Iterator* rbegin(); //DONE
             Iterator* rend(); //DONE
 
-            Node* find(Node* head, card number); //DONE
+            Node* find(Node* head, card number); //DONE //DONE
             
             void inOrder(Node* head);
-            void preOrder(Node* head);
+            void preOrder(Node* head); 
             void postOrder(Node* head);
+            Node* successor(Node* head); //DONE //DONE
+            Node* predecessor(Node* head); // DONE // DONE
             
         private:
+            void removeHelp(Node* head, card a); //DONE
             void destructHelp(Node* del);
             Node* root;
     };
@@ -157,6 +157,9 @@
     }
 
     Node* cardBST::predecessor(Node* head){
+        if(!head){
+            return nullptr;
+        }
 
         if(!(contains(root, head->data))){
             return nullptr;
@@ -340,7 +343,6 @@
         destructHelp(del->right);
         delete del;
     }
-
 
     Iterator::Iterator(Node* root, cardBST* ori){
         node = root;
